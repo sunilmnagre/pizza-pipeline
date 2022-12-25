@@ -2,9 +2,9 @@
 
 ### Live preview
 
-- <a href="http://87.200.95.206:7085/" target="_blank>Application</a>
+[Application](http://87.200.95.206:7085/)
 
-- <a href="http://87.200.95.206:7087/" target="_blank>RabbitMQ</a>
+[RabbitMQ](http://87.200.95.206:7087/)
 
 ### Requirement
 Your task is to manage a Pizza restaurant - the restaurant receives an array of
@@ -15,16 +15,16 @@ The dough-to-pizza pipeline is:
 When a certain station within the pipeline is completed, the pizza moves to the next one. There are no dependencies between the orders in the arrays - when an order is ready to be served, it is being deployed to the customer.
 
 ###### The restaurant personnels are:
-● 2 dough chefs - each chef can handle one dough at a time. It takes 7 seconds to
+* 2 dough chefs - each chef can handle one dough at a time. It takes 7 seconds to
 prepare each dough.
-● 3 topping chefs - each chef can handle 2 toppings at a time. It takes 4 seconds to put each topping on the Pizza.
-● 1 oven that takes one pizza each time and cook it for 10 seconds.
-● 2 waiters that serve the pizza to the customers. From the kitchen to the table it takes 5 seconds.
+* 3 topping chefs - each chef can handle 2 toppings at a time. It takes 4 seconds to put each topping on the Pizza.
+* 1 oven that takes one pizza each time and cook it for 10 seconds.
+* 2 waiters that serve the pizza to the customers. From the kitchen to the table it takes 5 seconds.
 
 Each process should print logs (start and end time).
 In the end, when all the orders had been served, you need to print a report about the the complete set of orders. The report should contain:
-● The preparation time from start to end
-● The preparation time for each order
+* The preparation time from start to end
+* The preparation time for each order
 
 ### Prerequisites
 Considering you know about Node.js and Docker
@@ -55,12 +55,12 @@ http://localhost:7087
 Previews
 Application
 <p align="center">
-        <img src="assets/app.png" width="250" alt="Pizza Pipeline app" />
+        <img src="assets/app.png" width="900" alt="Pizza Pipeline app" />
 </p>
 
 RabbitMQ
 <p align="center">
-        <img src="assets/rabbitmq.png" width="250" alt="Pizza Pipeline app" />
+        <img src="assets/rabbitmq.png" width="900" alt="RabbitMQ" />
 </p>
 
 ### Note
