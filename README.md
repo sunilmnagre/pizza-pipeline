@@ -58,6 +58,8 @@ Application
         <img src="assets/app.png" width="1000" alt="Pizza Pipeline app" />
 </p>
 
+- - - -
+
 RabbitMQ
 <p align="center">
         <img src="assets/rabbitmq.png" width="1000" alt="RabbitMQ" />
@@ -74,6 +76,8 @@ rabbitmqctl add_user sunil admin
 rabbitmqctl set_user_tags sunil administrator
 rabbitmqctl set_permissions -p / sunil ".*" ".*" ".*"
 ```
+```
 sunil - Username, admin - Password, you can select your if you want
+```
 3) Test cases can be added
 4) We can add logging on each level into the file/db to track process
