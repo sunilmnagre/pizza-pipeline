@@ -1,0 +1,23 @@
+{
+  "name": "pizza-pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "config": "^3.3.8",
+    "ejs": "^3.1.8",
+    "express": "^4.18.0",
+    "winston": "^3.8.2"
+  }
+}

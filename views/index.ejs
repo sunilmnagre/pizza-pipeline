@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: arial, sans-serif;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .resultRow {
+            padding: 5px;
+            line-height: 30px;
+            border: 1px solid #dddddd;
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Pizza Pipeline</h2>
+
+    <table>
+        <tr>
+            <th>Quantity</th>
+            <th>Toppings</th>
+            <th>Order</th>
+        </tr>
+        <tr>
+            <td>
+                <label for="quantity">Please enter pizza quantity</label>
+                <br><br>
+                <input type="number" id="quantity" name="quantity" placeholder="e.g 2" value="1" style="padding: 10px;">
+            </td>
+            <td>
+                <label for="quantity">Please enter number of toppings, dont enter string</label>
+                <br><br>
+                <input type="number" id="toppings" name="toppings" placeholder="e.g 4" value="2" style="padding: 10px;">
+            </td>
+            <td style="text-align:center">
+                <input type="button" value="Process Order" onclick="processPizza();"
+                    style="height: 34px;border: solid;">
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <i style="font-size: 14px;">Samples:
+                    Pepperoni, Tomatoes, Mushroom, Jalapeno, Onions, Cheddar Cheese, Tomatoes
+                </i>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+
+    </table>
+    <br>
+    <div id="processingDiv" style="display:none;text-align:center;color:rgb(232, 119, 19);font-weight:bold;">
+        Processing... Pizza will come one after other. Please wait until all pizza's delivered </div>
+
+    <div id="resultDiv" style="display:none;">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script>
+        let timerID = null;
+        let totalTimeInterval = 0;
+        let maxTimeToFinish = 0;
+
+        // Need to read log file as a JSON.
+        // Add to make json string before parsing
+        function formatData(data) {
+            data = data.replaceAll('\n', ',');
+            data = data.substring(0, data.length - 1);
+            data = '[' + data + ']';
+            return data;
+        }
+
+        // This function will send the data to backend for the processing
+        function processPizza() {
+            let quantity = $('#quantity').val();
+            let toppings = $('#toppings').val();
+
+            maxTimeToFinish = quantity * (7000 + 4000 + 10000 + 5000);
+
+            // Clear the interval, as we are waiting to get updates
+            clearInterval(timerID);
+
+            $('#processingDiv').show();
+            $('#resultDiv').html('');
+            $.ajax({
+                type: 'GET',
+                url: `/order-process?q=${quantity}&t=${toppings}`
+            });
+
+            timerID = setInterval(() => {
+                getUpdate();
+            }, 5000);
+        };
+
+        // Read the log file to generate the report, if any pizza gets ready
+        function getUpdate() {
+            totalTimeInterval = totalTimeInterval + 5000;
+            if (totalTimeInterval > maxTimeToFinish) {
+                // Clear the interval, as we are waiting to get updates
+                clearInterval(timerID);
+            }
+
+            $.ajax({
+                url: "./reports.log",
+                async: false,
+                success: function (data) {
+                    if (data) {
+                        $('#processingDiv').hide();
+                        $('#resultDiv').show();
+                        $('#resultDiv').html('');
+                        $('#resultDiv').append(createReport(data));
+                    }
+                }
+            });
+        }
+
+        // Create HTML structure for the report
+        function createReport(data) {
+            data = formatData(data)
+            data = JSON.parse(data);
+
+            let resultHTML = '';
+            data.forEach(element => {
+                element = element.message;
+                resultHTML = resultHTML + `<br><div class="resultRow">
+                OrderId: <b>${element.orderId}</b>
+                <br>  
+                No. of Toppings: <b>${element.toppings}</b>
+                 <br>
+                Start Time: <b>${element.startTime}</b>
+                <br>
+                Dough Prepd: <b>${element.doughDoneAt}</b>
+                <br>  
+                Toppings Prepd: <b>${element.toppingDoneAt}</b>
+                <br>
+                Cooked: <b>${element.cookedAt}</b>
+                <br>
+                Delivery: <b>${element.deliveryAt}</b>
+                </div>
+                `;
+            });
+            return resultHTML;
+        };
+    </script>
+</body>
+
+</html>
