@@ -55,12 +55,12 @@ http://localhost:7087
 Previews
 Application
 <p align="center">
-        <img src="assets/app.png" width="900" alt="Pizza Pipeline app" />
+        <img src="assets/app.png" width="1000" alt="Pizza Pipeline app" />
 </p>
 
 RabbitMQ
 <p align="center">
-        <img src="assets/rabbitmq.png" width="900" alt="RabbitMQ" />
+        <img src="assets/rabbitmq.png" width="1000" alt="RabbitMQ" />
 </p>
 
 ### Note
